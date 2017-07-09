@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ssm.blog.dao.ExchangeDao">
+
+
+    <select id="getExchange"  parameterType="int"   resultMap="exchangeMap"  >
+	   select id,exchange,expires_in,create_time  
+	   from t_exchange
+	   where id = #{id}  
+	</select>
+
+ 
+    <update id="update" parameterType="Exchange">
+        update t_exchange set  exchange = #{exchange} ,expires_in = #{expires_in},create_time = #{create_time} 
+        where id = 1
+        
+    </update>
+    
+	
+	 <resultMap type="Exchange" id="exchangeMap">
+	     <id property="id" column="id" />  
+	     <result property="exchange" column="exchange"/>  
+	     <result property="expires_in" column="expires_in"/>
+	     <result property="creat_time" column="creat_time"/>
+	</resultMap>
+	
+	
+</mapper> 

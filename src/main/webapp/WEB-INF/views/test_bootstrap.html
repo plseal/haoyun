@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>儿童电子档案</title>
+    <meta http-equiv="pragma" content="no-cache"/>   
+    <meta http-equiv="Cache-Control" content="no-cache, must-revalidate"/>   
+    <meta http-equiv="expires" content="0"/> 
+    <link href="./bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
+    <link href="../css/bootstrap-datetimepicker.min.css" rel="stylesheet" media="screen">
+</head>
+
+<body>
+<div class="container">
+    <form action="" class="form-horizontal"  role="form">
+        <fieldset>
+        	<div class="page-header position-relative">
+				<h1>
+					<small>
+						成长点滴
+					</small>
+				</h1>
+           </div>
+			<div class="form-group">
+				 <label class="col-sm-2 control-label">姓名：</label>
+				<div class="col-sm-10">
+					<input type="text"  class="form-control" id="child_name" name="child_name"  placeholder="请输入姓名" check-type="required" required-message="请输入小朋友的名字">
+				</div>
+			</div>
+			<div class="form-group">
+				 <label  class="col-sm-2 control-label">性别：</label>
+				<div class="col-sm-10 ">
+					<select id="sexTypeId" class="form-control"  name="sexType.id" check-type="required" required-message="请选择性别">
+						<option value=""></option>
+						<c:forEach items="${sexTypeList}" var="sexType">
+							<option value="${sexType.id}">${sexType.typeName}</option>
+						</c:forEach>
+					</select>
+					
+				</div>
+			</div>
+			
+			<div class="form-group">
+				 <label  class="col-sm-2 control-label">生日：</label>
+				 <div class="col-sm-10 ">
+	                <div class="input-group date form_date " data-date="" data-date-format="yyyy/mm/dd" data-link-field="dtp_input2" data-link-format="yyyy/mm/dd">
+	                    <input  id="dtp_input1" class="form-control" size="16" type="text" value="" readonly >
+	                    <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+						<span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+	                </div>
+					<input type="hidden" id="dtp_input2" value="" check-type="required" required-message="请输入小朋友的生日"><br/>
+				 </div>
+				 
+
+			</div>
+
+			<div class="form-group">
+				 <label  class="col-sm-2 control-label">年龄(根据生日自动生成)：</label>
+				 <div class="col-sm-10 ">
+					<input type="text" class="form-control" id="child_age" name="child_age"  placeholder="" readonly  > 
+				 </div>
+				 
+
+			</div>
+			
+			<div class="form-group">
+				 <label  class="col-sm-2 control-label">身高(厘米)：</label>
+				 <div class="col-sm-10 ">
+					<input type="text" class="form-control" id="child_height" name="child_height"  placeholder="请输入身高" check-type="required number" required-message="请输入小朋友的身高">
+				 </div>
+			</div>
+
+			<div class="form-group">
+				 <label  class="col-sm-2 control-label">体重：</label>
+				 <div class="col-sm-10 ">
+					<input type="text" class="form-control" id="child_height" name="child_height"  placeholder="请输入体重" check-type="required number" required-message="请输入小朋友的体重">
+				 </div>
+			</div>
+
+		     <div class="form-group">
+		        <div class="col-sm-10 ">
+		          <button type="submit" class="btn btn-primary col-sm-4">提交</button>
+		        </div>
+		      </div>
+
+        </fieldset>
+    </form>
+</div>
+
+<script type="text/javascript" src="./jquery/jquery-1.8.3.min.js" charset="UTF-8"></script>
+<script type="text/javascript" src="./bootstrap/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../js/bootstrap-datetimepicker.js" charset="UTF-8"></script>
+<script type="text/javascript" src="../js/locales/bootstrap-datetimepicker.zh-CN.js" charset="UTF-8"></script>
+<script type="text/javascript" src="../js/bootstrap3-validation.js" charset="UTF-8"></script>
+
+<script type="text/javascript">
+
+
+$(function(){
+   //bootstrap3-validation init：
+   $("form").validation();
+   $("button[type='submit']").on('click',function(event){
+     // 2.最后要调用 valid()方法。
+     if ($("form").valid_(this,"error!")==false){
+       //$("#error-text").text("error!"); 1.0.4版本已将提示直接内置掉，简化前端。
+       return false;
+     }
+   })
+   
+   $("#sexTypeId").on('change',function(event){
+     if ($("form").valid_one(this,"")==false){
+       return false;
+     }
+   })
+   
+   $("#dtp_input1").on('change',function(event){
+   	   document.getElementById("dtp_input2").value = $("#dtp_input1").val()
+		 if ($("form").valid_one(document.getElementById("dtp_input2"),"")==false){
+		   return false;
+		 } 
+   })
+   
+ 
+
+
+})
+</script>
+<script type="text/javascript">
+	
+	//endDate limit to thisday
+	var year = new Date().getFullYear();
+	var month = new Date().getMonth() + 1;
+	var day = new Date().getDate();
+	var today = year + "/" + month + "/" +day;
+	//alert(today);
+	$('.form_date').datetimepicker({
+        language:  'zh-CN',
+        weekStart: 1,
+        todayBtn:  1,
+		autoclose: 1,
+		todayHighlight: 1,
+		startView: 2,
+		minView: 2,
+		endDate: today,
+		forceParse: 0
+    });
+
+	$('.form_date').on('changeDate', function(ev){
+		//alert(DateDiff(ev.date,new Date()));
+		//btnCount_Click();
+		
+	    //if (ev.date.valueOf() < date-start-display.valueOf()){
+	        //
+	    //}
+	    //根据出生日期系统自动推算，12个月内精确到天，1岁以上精确到月
+	    //365
+	    var nowdate = new Date();
+	    var brithday = ev.date;
+		//var age =nowdate.getFullYear() - brithday.getFullYear();
+		//alert(age);
+		if (brithday != null) {
+			var age_of_days = DateDiff(brithday,nowdate);
+			var age_of_months = getMonths(brithday,nowdate);
+			//alert(age_of_days);
+			//12个月内精确到天
+			if (age_of_days < 365) {
+				document.getElementById("child_age").value = age_of_days + "天"
+			//1岁以上精确到月	
+			} else {
+				document.getElementById("child_age").value = age_of_months + "月"
+			}
+		//clear
+		} else {
+			document.getElementById("child_age").value = ""
+		}
+	});
+	
+   //计算天数差的函数，通用  
+   function  DateDiff(sDate1,  sDate2){    
+       var  iDays  
+       	         
+       iDays  =  parseInt(Math.abs(sDate1  -  sDate2)  /  1000  /  60  /  60  /24)    //把相差的毫秒数转换为天数  
+       return  iDays  
+   }
+   //计算月数差的函数，通用  
+   function getMonths(date1 , date2){
+	    //获取年,月数
+	    var year1 = date1.getYear() , 
+	        month1 = date1.getMonth() , 
+	        year2 = date2.getYear() , 
+	        month2 = date2.getMonth(), 
+	        //通过年,月差计算月份差
+	        months = (year2 - year1) * 12 + (month2-month1) + 1;
+	    return months;    
+	}
+
+</script>
+
+</body>
+</html>

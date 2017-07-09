@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ssm.blog.dao.ExpressDao">
+
+
+ 
+    <update id="update" parameterType="Exchange">
+        update t_express set  date = #{date} ,name = #{name},number = #{number},des = #{des},price = #{price} ,content = #{content} ,e_from = #{e_from} ,remark = #{remark}	
+        where id = #{id}
+        
+    </update>
+    <update id="update_wechat_info" parameterType="Exchange">
+        update t_express set  wechat_id = #{wechat_id}	,wechat_date = #{wechat_date}	
+        where id = #{id}
+        
+    </update>
+	<insert id="insert" parameterType="Exchange" keyProperty="id" useGeneratedKeys="true">
+		INSERT INTO t_express VALUES(null,#{date},#{name},#{number},#{des},#{price},#{content},#{e_from},#{remark},#{wechat_id},#{wechat_date})
+	</insert>
+
+	<select id="get_by_name" parameterType="String" resultMap="expressMap">
+		SELECT * FROM t_express WHERE name=#{name} order by name,date desc
+	</select>
+	<select id="get_by_number" parameterType="String" resultMap="expressMap">
+		SELECT * FROM t_express WHERE number=#{number} order by name,date desc
+	</select>
+	<select id="get_by_wechat_id" parameterType="String" resultMap="expressMap">
+		select * from t_express where name in (SELECT name FROM t_express WHERE wechat_id=#{wechat_id})  order by name,date desc
+	</select>
+	 <resultMap type="Express" id="expressMap">
+	     <id property="id" column="id" />  
+	     <result property="date" column="date"/>  
+	     <result property="name" column="name"/>
+	     <result property="number" column="number"/>
+	     <result property="des" column="des"/>
+	     <result property="price" column="price"/>
+	     <result property="content" column="content"/>
+	     <result property="e_from" column="e_from"/>
+	     <result property="remark" column="remark"/>
+		 <result property="wechat_id" column="wechat_id"/>
+		 <result property="wechat_date" column="wechat_date"/>
+	</resultMap>
+	
+	
+</mapper> 

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ssm.blog.dao.ChildHealthRecordDao">
+
+
+    <select id="get_chr"  parameterType="ChildHealthRecord"   resultMap="chrMap"  >
+	   select id,weixin_openid,child_name,child_sex,child_birth,child_age,child_height,child_weight,update_date,create_time  
+	   from t_child_health_record
+	   where weixin_openid = #{weixin_openid} 
+	</select>
+	
+    <select id="get_one_chr_byid"  parameterType="ChildHealthRecord"   resultMap="chrMap"  >
+	   select id,weixin_openid,child_name,child_sex,child_birth,child_age,child_height,child_weight,update_date,create_time  
+	   from t_child_health_record
+	   where id = #{id} 
+	</select>
+	
+    <select id="get_one_child_records"  parameterType="ChildHealthRecord"   resultMap="chrMap"  >
+	   select id,weixin_openid,child_name,child_sex,child_birth,child_age,child_height,child_weight,update_date,create_time  
+	   from t_child_health_record
+	   where weixin_openid = #{weixin_openid}  
+	</select>
+ 
+    <update id="update_chr" parameterType="ChildHealthRecord">
+        update t_child_health_record set  child_name = #{child_name} ,child_sex = #{child_sex} ,child_birth = #{child_birth} ,child_age = #{child_age} ,child_height = #{child_height} ,
+		child_weight = #{child_weight} ,update_date = #{update_date}
+        where  id = #{id} 
+        
+    </update>
+	
+	<delete id="delete_chr" parameterType="ChildHealthRecord">
+		delete from t_child_health_record where id=#{id}
+	</delete>
+    
+	<insert id="insert_chr" parameterType="ChildHealthRecord" keyProperty="id" useGeneratedKeys="true">
+		INSERT INTO t_child_health_record VALUES(null,#{weixin_openid},#{child_name},#{child_sex},#{child_birth},#{child_age},#{child_height},#{child_weight},#{update_date},now())
+	</insert>
+	
+	 <resultMap type="ChildHealthRecord" id="chrMap">
+	     <id property="id" column="id" />  
+	     <result property="weixin_openid" column="weixin_openid"/>  
+	     <result property="child_name" column="child_name"/>
+	     <result property="child_sex" column="child_sex"/>
+	     <result property="child_birth" column="child_birth"/>
+	     <result property="child_age" column="child_age"/>
+	     <result property="child_height" column="child_height"/>
+	     <result property="child_weight" column="child_weight"/>
+	     <result property="update_date" column="update_date"/>
+	     <result property="creat_time" column="creat_time"/>
+	</resultMap>
+	
+	
+</mapper> 

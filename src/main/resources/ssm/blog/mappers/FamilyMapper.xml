@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ssm.blog.dao.FamilyDao">
+
+ 
+    <update id="update" parameterType="Family">
+        update t_family set  
+        lunar_birth = #{lunar_birth} 
+        ,lunar_birth2 = #{lunar_birth2} 
+        ,age = #{age}
+        ,animals_year = #{animals_year}
+        ,m_date = #{m_date}  
+        where id = #{id}
+    </update>
+
+	<select id="get_by_id" parameterType="Integer" resultMap="familyMap">
+		SELECT * FROM t_family WHERE id=#{id} 
+	</select>
+	<select id="get_all" resultMap="familyMap">
+		SELECT * FROM t_family WHERE 1=1
+	</select>
+
+	 <resultMap type="Family" id="familyMap">
+	     <id property="id" column="id" />  
+	     <result property="name" column="name"/>  
+	     <result property="birth" column="birth"/>
+	     <result property="remind_date" column="remind_date"/>
+	     <result property="lunar_birth" column="lunar_birth"/>
+	     <result property="lunar_birth2" column="lunar_birth2"/>
+	     <result property="age" column="age"/>
+	     <result property="animals_year" column="animals_year"/>
+	     
+	</resultMap>
+	
+	
+</mapper> 
