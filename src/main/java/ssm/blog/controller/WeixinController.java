@@ -137,7 +137,7 @@ public class WeixinController {
 			Map<String, String> requestMap = WeixinUtil.parseXml(request);
 			Message message = WeixinUtil.mapToMessage(requestMap);
 			logger.info("["+this.getClass().getName()+"][weixin_haoyun][message.getFromUserName()]"+message.getFromUserName());
-			request.getSession().setAttribute("open_id", message.getFromUserName());
+			request.getSession().setAttribute("openid_haoyun", message.getFromUserName());
 			//weixinService.addMessage(message);//保存接受消息到数据库
 			String replyContent = WELCOME_CONTENT_HAOYUN;
 			String type = message.getMsgType();

@@ -116,7 +116,7 @@ public class WeixinOauth2Controller {
 		HttpSession session = request.getSession();
 		String openid_haoyun = (String)session.getAttribute("openid_haoyun");
 		logger.info("["+this.getClass()+"][get_code_haoyun][openid_haoyun]"+openid_haoyun);
-		if (openid_haoyun == null || openid_haoyun.trim().length() == 0) {
+		if (openid_haoyun == null || openid_haoyun.trim().length() == 0 ) {
 			
 			String str_code = request.getParameter("code");//我们要的code
 			logger.info("["+this.getClass()+"][get_code_haoyun][CODE]"+str_code);
