@@ -116,9 +116,8 @@ public class WeixinOauth2Controller {
 		HttpSession session = request.getSession();
 		String openid_haoyun = (String)session.getAttribute("openid_haoyun");
 		logger.info("["+this.getClass()+"][get_code_haoyun][openid_haoyun]"+openid_haoyun);
-		if (!"".equals(openid_haoyun) ) {
-			logger.info("["+this.getClass()+"][get_code_haoyun][no need to get openid]");
-		} else {
+		if (openid_haoyun == null || openid_haoyun.trim().length() == 0) {
+			
 			String str_code = request.getParameter("code");//我们要的code
 			logger.info("["+this.getClass()+"][get_code_haoyun][CODE]"+str_code);
 			
@@ -127,6 +126,9 @@ public class WeixinOauth2Controller {
 			logger.info("["+this.getClass()+"][get_code_haoyun][openid_haoyun][from url]"+openid_haoyun);
 			
 			session.setAttribute("openid_haoyun",openid_haoyun);
+			
+		} else {
+			logger.info("["+this.getClass()+"][get_code_haoyun][no need to get openid]");
 		}
 
 		ModelAndView mv = new ModelAndView();
