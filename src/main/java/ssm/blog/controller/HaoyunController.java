@@ -215,10 +215,13 @@ public class HaoyunController {
 		
 		
 		//ResponseUtil.write(response, result);
-		logger.info("["+this.getClass()+"][c_express][end]");
+		
 		if (expresses.size() == 0){
+			logger.info("["+this.getClass()+"][c_express][end] goto check_express_first.jsp");
 			return "../../haoyun/check_express_first";
+			
 		} else {
+			logger.info("["+this.getClass()+"][c_express][end] goto check_express_get.jsp");
 			request.setAttribute("expresses", expresses);
 			return "../../haoyun/check_express_get";
 		}
