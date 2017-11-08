@@ -298,7 +298,7 @@ public class MenuController {
         mainBtn1.setType("view");
         mainBtn1.setKey("01");
         //snsapi_base不弹出授权页面，直接跳转，只能获取用户openid
-        String strURL ="https://open.weixin.qq.com/connect/oauth2/authorize?appid="+strAPPID_HAOYUN+"&redirect_uri=http://www.lingzhu-med.com/Blog/weixin_oauth2/get_code_haoyun.do&response_type=code&scope=snsapi_base&state=1#wechat_redirect";
+        String strURL ="https://open.weixin.qq.com/connect/oauth2/authorize?appid="+strAPPID_HAOYUN+"&redirect_uri=http://www.haojiayun.com.cn/haoyun/weixin_oauth2/get_code_haoyun.do&response_type=code&scope=snsapi_base&state=1#wechat_redirect";
         mainBtn1.setUrl(strURL);
 
 
