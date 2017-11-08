@@ -126,7 +126,8 @@ public class WeixinOauth2Controller {
 			logger.info("["+this.getClass()+"][get_code_haoyun][openid_haoyun][from url]"+openid_haoyun);
 			
 			session.setAttribute("openid_haoyun",openid_haoyun);
-			
+		 openid_haoyun = (String)session.getAttribute("openid_haoyun");
+		logger.info("["+this.getClass()+"][get_code_haoyun][openid_haoyun222]"+openid_haoyun);
 		} else {
 			logger.info("["+this.getClass()+"][get_code_haoyun][no need to get openid]");
 		}
