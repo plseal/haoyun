@@ -113,7 +113,7 @@ public class WeixinOauth2Controller {
 			HttpServletRequest request) throws Exception {
 		
 		logger.info("["+this.getClass()+"][get_code_haoyun][start]");
-		
+		HttpSession session = request.getSession();
 		String openid_haoyun = (String)session.getAttribute("openid_haoyun");
 		logger.info("["+this.getClass()+"][get_code_haoyun][openid_haoyun]"+openid_haoyun);
 		if (!"".equals(openid_haoyun) ) {
@@ -123,17 +123,16 @@ public class WeixinOauth2Controller {
 			logger.info("["+this.getClass()+"][get_code_haoyun][CODE]"+str_code);
 			
 			AccessToken accessToken = get_oauth2_access_token_from_url(str_code,"HAOYUN");
-			logger.info("["+this.getClass()+"][get_code_haoyun][openId]"+accessToken.getOpenid());
-			ModelAndView mv = new ModelAndView();
-
-			HttpSession session = request.getSession();
-			session.setAttribute("openid_haoyun",accessToken.getOpenid());
+			openid_haoyun = accessToken.getOpenid();
+			logger.info("["+this.getClass()+"][get_code_haoyun][openid_haoyun][from url]"+openid_haoyun);
+			
+			session.setAttribute("openid_haoyun",openid_haoyun);
 		}
 
-
+		ModelAndView mv = new ModelAndView();
 		//初期画面
 		mv.addObject("hid_flg", "init");
-		mv.setViewName("forward:../haoyun/c_express.do?wechat_id="+accessToken.getOpenid());
+		mv.setViewName("forward:../haoyun/c_express.do?wechat_id="+openid_haoyun);
 		
 		logger.info("["+this.getClass()+"][get_code_haoyun][end]");
 		return mv;
