@@ -114,16 +114,22 @@ public class WeixinOauth2Controller {
 		
 		logger.info("["+this.getClass()+"][get_code_haoyun][start]");
 		
-		
-		String str_code = request.getParameter("code");//我们要的code
-		logger.info("["+this.getClass()+"][get_code_haoyun][CODE]"+str_code);
-		
-		AccessToken accessToken = get_oauth2_access_token_from_url(str_code,"HAOYUN");
-		logger.info("["+this.getClass()+"][get_code_haoyun][openId]"+accessToken.getOpenid());
-		ModelAndView mv = new ModelAndView();
+		String openid_haoyun = (String)session.getAttribute("openid_haoyun");
+		logger.info("["+this.getClass()+"][get_code_haoyun][openid_haoyun]"+openid_haoyun);
+		if (!"".equals(openid_haoyun) ) {
+			logger.info("["+this.getClass()+"][get_code_haoyun][no need to get openid]");
+		} else {
+			String str_code = request.getParameter("code");//我们要的code
+			logger.info("["+this.getClass()+"][get_code_haoyun][CODE]"+str_code);
+			
+			AccessToken accessToken = get_oauth2_access_token_from_url(str_code,"HAOYUN");
+			logger.info("["+this.getClass()+"][get_code_haoyun][openId]"+accessToken.getOpenid());
+			ModelAndView mv = new ModelAndView();
 
-		HttpSession session = request.getSession();
-		session.setAttribute("openid_haoyun",accessToken.getOpenid());
+			HttpSession session = request.getSession();
+			session.setAttribute("openid_haoyun",accessToken.getOpenid());
+		}
+
 
 		//初期画面
 		mv.addObject("hid_flg", "init");
