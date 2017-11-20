@@ -21,13 +21,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</insert>
 
 	<select id="get_by_name" parameterType="String" resultMap="expressMap">
-		SELECT * FROM t_express WHERE name=#{name} order by name,date desc
+		SELECT * FROM t_express WHERE name=#{name} order by name,date + 0 desc
 	</select>
 	<select id="get_by_number" parameterType="String" resultMap="expressMap">
-		SELECT * FROM t_express WHERE number=#{number} order by name,date desc
+		SELECT * FROM t_express WHERE number=#{number} order by name,date + 0 desc
 	</select>
 	<select id="get_by_wechat_id" parameterType="String" resultMap="expressMap">
-		select * from t_express where name in (SELECT name FROM t_express WHERE wechat_id=#{wechat_id})  order by name,date desc
+		select * from t_express where name in (SELECT name FROM t_express WHERE wechat_id=#{wechat_id})  order by name,date + 0 desc
 	</select>
 	 <resultMap type="Express" id="expressMap">
 	     <id property="id" column="id" />  
